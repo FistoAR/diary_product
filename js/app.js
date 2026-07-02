@@ -106,8 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const tl = gsap.timeline({
             onComplete: () => {
                 preloader.style.display = 'none';
-                // Trigger scroll trigger refresh after layout is fully rendered
-                ScrollTrigger.refresh();
+                // Trigger scroll trigger refresh after layout is fully rendered with a small delay
+                setTimeout(() => {
+                    ScrollTrigger.refresh();
+                }, 200);
             }
         });
         
@@ -337,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power3.out',
         scrollTrigger: {
             trigger: '.products-section',
-            start: 'top 70%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse'
         }
     });
@@ -525,5 +527,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 3000);
             }
         });
+    });
+
+    // Refresh ScrollTrigger on window load to ensure all dynamic heights are correctly updated
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 500);
     });
 });
